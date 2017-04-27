@@ -203,7 +203,7 @@ int main()
 				for(int k=0;k<sizeof(node_arr);k++
 				    {
 			if strcmp(route[i][j],node_arr[k])==0
-			{route_wt[i]+=route[i][j].wieght; route_wait_student[i]+=route[i][j].num_wait;
+			{route_wt[i]+=node_arr[k].weight; route_wait_student[i]+=node_arr[k].num_wait;
     			}
     		}
 			}	
