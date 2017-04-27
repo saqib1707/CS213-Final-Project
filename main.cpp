@@ -194,21 +194,27 @@ int main()
     		}
 		//initialise bus values
     		// calculate route weights
-		int route_weight[3]={0,0,0};
+	if (clk==0){	int route_wt[3]={0,0,0};
 		int route_wait_student[3]={0,0,0};
     		for (int i=0;i<3;i++){
 			
-    			for(int j=0; j<sizeof(route[i]); j++){
-			if strcmp(route[i],node_arr[j])==0
-			{route_wt[i]+=route[i].wieght; route[i].wait_student+=route[i].num_wait;
+    			for(int j=0; j<sizeof(route[i]); j++)
+			{
+				for(int k=0;k<sizeof(node_arr);k++
+				    {
+			if strcmp(route[i][j],node_arr[k])==0
+			{route_wt[i]+=route[i][j].wieght; route_wait_student[i]+=route[i][j].num_wait;
     			}
     		}
+			}	
+		}
+		    
+		    //Saqib code here   //note capacity =b1.cap+b2.cap+b3.cap
 			
-			//Saqib code here
+		
+		
 			
-			clk++;
-			
-
+	clk++;
     	}
     }
 
