@@ -1,9 +1,10 @@
 #include <iostream>
 #include "bus_lib.h"
+#include "node_lib.h"
 using namespace std;
 
 
-void feeding_nodes(Node node_array, int lineNumber=2, int lineNumberSought=11) 
+void feeding_nodes(Node node_array[], int lineNumber=2, int lineNumberSought=11) 
 {
     string line, csvItem;
     ifstream myfile("time_table.csv");    // you may get it as argument
@@ -28,7 +29,7 @@ void feeding_nodes(Node node_array, int lineNumber=2, int lineNumberSought=11)
     return 0;
 }
     
-void calculate_hash(Node node_array, string word)   // word[0] = 'h12'
+void calculate_hash(Node node_array[], string word)   // word[0] = 'h12'
 {
     //node bus_stop[30];
     int i=0, j=0;
@@ -167,31 +168,50 @@ int main()
 
     g.addEdge(node_array[0], node_array[1]);
     g.addEdge(node_array[1], node_array[2]);
-
+    g.addEdge(node_array[2], node_array[3]);
+    g.addEdge(node_array[3], node_array[4]);
+    g.addEdge(node_array[4], node_array[5]);
+    g.addEdge(node_array[2], node_array[9]);
+    g.addEdge(node_array[9], node_array[8]);
+    g.addEdge(node_array[8], node_array[7]);
+    g.addEdge(node_array[7], node_array[15]);
+    g.addEdge(node_array[7], node_array[10]);
+    g.addEdge(node_array[6], node_array[10]);
+    g.addEdge(node_array[10], node_array[4]);
 
     // route defined
     string route[3][];
     route[0][]=['h12', 'h07', 'h05', 'h11', 'som', 'kre'];
-    route[1][]=['h12', 'h07', 'h05', 'h04', 'h02', 'h01', 'lib', 'som', 'kre'];
+    route[1][]=['h12', 'h07', 'h05', 'h04', 'h03', 'h01', 'lib', 'som', 'kre'];
     route[2][]=['h15', 'lib', 'som', 'kre'];
     
 
-    while(true){
+    while(true){	
+	   	//clk=0;     clock is already defined zero
     	if(clk%2 == 0){
-
-    		for(int i=0; i<Node::no_of_nodes; i++){
-    			node_array[i].student_arrival(); // function called for updation of student 
-    												//at all the nodes.
+			for(int i=0; i<Node::no_of_nodes; i++){
+    			node_array[i].student_arrival();     // function called for updation of student 
+    												// at all the nodes.
     		}
-
+			//initialise bus values
     		// calculate route weights
-    		for (int i=0;i<3;i++){
-    			for(int j=0; j<sizeof(route[i]); j++){
-
-    			}
-    		}
-
+			if (clk==0){
+				int route_wt[3]={0,0,0};
+				int route_wait_student[3]={0,0,0};
+		    	for (int i=0;i<3;i++){
+					for(int j=0; j<sizeof(route[i]); j++){
+						for(int k=0;k<sizeof(node_array);k++){
+							if (strcmp(route[i][j],node_array[k]) == 0){
+								route_wt[i] += node_array[k].weight; 
+								route_wait_student[i] += node_array[k].num_wait;
+		    				}
+		    			}
+					}	
+				}
+			}
+		//Saqib code here   //note capacity =b1.cap+b2.cap+b3.cap
+		clk++;
     	}
     }
-
+    return 1;
 }
