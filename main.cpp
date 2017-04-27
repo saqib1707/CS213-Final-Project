@@ -1,43 +1,34 @@
 #include <iostream>
-#include <bus_lib.h>
+#include "bus_lib.h"
 using namespace std;
 
-struct Interface{
-    Bus buses[10];
-    Node node_array[10];
-    int distance[11];
 
-void feeding_nodesO(int lineNumber, int lineNumberSought) 
+void feeding_nodes(int lineNumber=2, int lineNumberSought=11) 
 {
     string line, csvItem;
-    ifstream myfile ("time_table.csv");
-      // you may get it as argument
-    if (myfile.is_open()) 
-    {
+    ifstream myfile("time_table.csv");    // you may get it as argument
+
+    if (myfile.is_open()) {
         while (getline(myfile,line)) 
         {
-                lineNumber++;
-            //if(lineNumber == lineNumberSought) {
-             //   cout << line << endl; ;
-                string word[20]; 
-                int p=0;
-                istringstream myline(line);
-                while(getline(myline, csvItem, ','))
-                {
-                //csvItem stores the value of the cell  
+            lineNumber++;
+            string word[20];
+            int p=0;
+            istringstream myline(line);
+            while(getline(myline, csvItem, ','))
+            {
+               //csvItem stores the value of the cell  
                word[p]=csvItem;
                p++;
-                           //    }
-                }
-                feeding_nodes(string word);
-
+            }
+            calculate_hash(string word);
         }
         myfile.close();
     }
     return 0;
 }
     
-void feeding_nodes(string word)
+void calculate_hash(string word)   // word[0] = 'h12'
 {
     node bus_stop[30];
     int i=0, j=0;
@@ -47,20 +38,18 @@ void feeding_nodes(string word)
     int hash_code=0;
     while(a[j]!=' ')
     {
-        if(j=2) hash_key=hash_key+int(a[j]);
-        {    
-            j++;
+    	j++;
+    	hash_key=hash_key+int(a[j]);
+        if(j==2){    
             hash_code=hash_key%29;
         }
-        for(int k=1;k<=7;k++)
-        {       
-            int d=0;
-            stringstream convert(word[k]);
-            convert>>d;
-
-            bus_stop[hash_code].time[k-1]=d;      // realting to number of people at different nodes at different times
-        }
-
+    }
+    for(int k=1;k<=7;k++)
+    {       
+        int d=0;
+        stringstream convert(word[k]);
+        convert>>d;
+		bus_stop[hash_code].time[k-1]=d;      // realting to number of people at different nodes at different times
     }
 }
     void feeding_buses(int n)
@@ -159,7 +148,7 @@ int main()
 	int clk=0;
 
 	Bus buses[10];
-    Node node_array[10];
+    Node node_array[30];
     int distance[11];
 
     int Bus::no_of_buses = 10;
@@ -168,14 +157,17 @@ int main()
     cout<<"enter bus informtion separated by underscore \n <number(2-digit)(as on the number plate)>_<capacity(only 2 digit number)(total number of people that can be accomodated)_<name of origin(3 characters)(like H12,H07 etc>";
     feeding_buses(Bus::no_of_buses);
     cout<<"format";
-    feeding_nodes(Node::no_of_nodes);
+
+    feeding_nodes();    // for initiatilising all the nodes
 
     Node vertex[] = node_array;   // array of node objects
     graph<Node> g;
 
     g.createGraphNodes(Node::no_of_nodes,vertex);
 
-    g.addEdge()
+    g.addEdge(node_array[0], node_array[1]);
+    g.addEdge(node_array[1], node_array[2]);
+
 
     // route defined
     string route[3][];
