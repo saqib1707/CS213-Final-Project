@@ -1,34 +1,43 @@
 #include <iostream>
-#include "bus_lib.h"
+#include <bus_lib.h>
 using namespace std;
 
+struct Interface{
+    Bus buses[10];
+    Node node_array[10];
+    int distance[11];
 
-void feeding_nodes(int lineNumber=2, int lineNumberSought=11) 
+void feeding_nodesO(int lineNumber, int lineNumberSought) 
 {
     string line, csvItem;
-    ifstream myfile("time_table.csv");    // you may get it as argument
-
-    if (myfile.is_open()) {
+    ifstream myfile ("time_table.csv");
+      // you may get it as argument
+    if (myfile.is_open()) 
+    {
         while (getline(myfile,line)) 
         {
-            lineNumber++;
-            string word[20];
-            int p=0;
-            istringstream myline(line);
-            while(getline(myline, csvItem, ','))
-            {
-               //csvItem stores the value of the cell  
+                lineNumber++;
+            //if(lineNumber == lineNumberSought) {
+             //   cout << line << endl; ;
+                string word[20]; 
+                int p=0;
+                istringstream myline(line);
+                while(getline(myline, csvItem, ','))
+                {
+                //csvItem stores the value of the cell  
                word[p]=csvItem;
                p++;
-            }
-            calculate_hash(string word);
+                           //    }
+                }
+                feeding_nodes(string word);
+
         }
         myfile.close();
     }
     return 0;
 }
     
-void calculate_hash(string word)   // word[0] = 'h12'
+void feeding_nodes(string word)
 {
     node bus_stop[30];
     int i=0, j=0;
@@ -38,18 +47,20 @@ void calculate_hash(string word)   // word[0] = 'h12'
     int hash_code=0;
     while(a[j]!=' ')
     {
-    	j++;
-    	hash_key=hash_key+int(a[j]);
-        if(j==2){    
+        if(j=2) hash_key=hash_key+int(a[j]);
+        {    
+            j++;
             hash_code=hash_key%29;
         }
-    }
-    for(int k=1;k<=7;k++)
-    {       
-        int d=0;
-        stringstream convert(word[k]);
-        convert>>d;
-		bus_stop[hash_code].time[k-1]=d;      // realting to number of people at different nodes at different times
+        for(int k=1;k<=7;k++)
+        {       
+            int d=0;
+            stringstream convert(word[k]);
+            convert>>d;
+
+            bus_stop[hash_code].time[k-1]=d;      // realting to number of people at different nodes at different times
+        }
+
     }
 }
     void feeding_buses(int n)
@@ -148,7 +159,7 @@ int main()
 	int clk=0;
 
 	Bus buses[10];
-    Node node_array[30];
+    Node node_array[10];
     int distance[11];
 
     int Bus::no_of_buses = 10;
@@ -157,17 +168,14 @@ int main()
     cout<<"enter bus informtion separated by underscore \n <number(2-digit)(as on the number plate)>_<capacity(only 2 digit number)(total number of people that can be accomodated)_<name of origin(3 characters)(like H12,H07 etc>";
     feeding_buses(Bus::no_of_buses);
     cout<<"format";
-
-    feeding_nodes();    // for initiatilising all the nodes
+    feeding_nodes(Node::no_of_nodes);
 
     Node vertex[] = node_array;   // array of node objects
     graph<Node> g;
 
     g.createGraphNodes(Node::no_of_nodes,vertex);
 
-    g.addEdge(node_array[0], node_array[1]);
-    g.addEdge(node_array[1], node_array[2]);
-
+    g.addEdge()
 
     // route defined
     string route[3][];
@@ -176,20 +184,30 @@ int main()
     route[2][]=['h15', 'lib', 'som', 'kre'];
     
 
-    while(true){
+    while(true){	
+	    clk=0;
     	if(clk%2 == 0){
-
+	
     		for(int i=0; i<Node::no_of_nodes; i++){
     			node_array[i].student_arrival(); // function called for updation of student 
     												//at all the nodes.
     		}
-
+		//initialise bus values
     		// calculate route weights
+		int route_weight[3]={0,0,0};
+		int route_wait_student[3]={0,0,0};
     		for (int i=0;i<3;i++){
+			
     			for(int j=0; j<sizeof(route[i]); j++){
-
+			if strcmp(route[i],node_arr[j])==0
+			{route_wt[i]+=route[i].wieght; route[i].wait_student+=route[i].num_wait;
     			}
     		}
+			
+			//Saqib code here
+			
+			clk++;
+			
 
     	}
     }
