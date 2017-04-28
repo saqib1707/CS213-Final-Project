@@ -7,7 +7,7 @@ class Node{
 public:
 	char[3] nodeID;
 	int num_wait;		            //no. of people waiting
-	int slots[9];
+	int slots[8];
 	std::deque<int> wait_line;
 	static int no_of_nodes;
 
