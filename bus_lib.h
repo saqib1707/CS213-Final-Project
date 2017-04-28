@@ -22,29 +22,9 @@ public:
 	// when the bus reaches a particular stop it should update the bus_capacity, bus_last_node and 
 	// will wait for unit_stop_time*no_of_people_at_that_stop
 
-
-	Bus(void)// parameters){
-		//busID = busID;
-		//bus_max_capacity = bus_max_capacity;
-		//source_node = source_node;
-		bus_present_capacity = 0;
-		//node_last_visited = source_node;
-		active = false;
-		/*
-		if(active == true){
-			destination_node = destination_node;
-		}
-		else{
-			destination_node = "000";
-		}
-		*/
-	}
-
 	void update_bus_parameters(char stop_node[]){   // when to update bus parameters will be called 
 													// by the bus_arrival function in node class
 		node_last_visited = stop_node;
-		
-
 	}
 
 	// this function will return the next node ID of the bus
