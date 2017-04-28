@@ -210,7 +210,79 @@ int main()
 		}
 		    
 		    //Saqib code here   //note capacity =b1.cap+b2.cap+b3.cap
-			
+		void merge(int route_wt[], int l=0, int m, int r=sizeof(route_wt)-1
+{
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 =  r - m;
+ 
+    /* create temp route_wtays */
+    int L[n1], R[n2];
+ 
+    /* Copy data to temp route_wtays L[] and R[] */
+    for (i = 0; i < n1; i++)
+        L[i] = route_wt[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = route_wt[m + 1+ j];
+ 
+    /* Merge the temp route_wtays back into route_wt[l..r]*/
+    i = 0; // Initial index of first subroute_wtay
+    j = 0; // Initial index of second subroute_wtay
+    k = l; // Initial index of merged subroute_wtay
+    while (i < n1 && j < n2)
+    {
+        if (L[i] <= R[j])
+        {
+            route_wt[k] = L[i];
+            i++;
+        }
+        else
+        {
+            route_wt[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+ 
+    /* Copy the remaining elements of L[], if there
+       are any */
+    while (i < n1)
+    {
+        route_wt[k] = L[i];
+        i++;
+        k++;
+    }
+ 
+    /* Copy the remaining elements of R[], if there
+       are any */
+    while (j < n2)
+    {
+        route_wt[k] = R[j];
+        j++;
+        k++;
+    }
+}
+ 
+/* l is for left index and r is right index of the
+   sub-route_wtay of route_wt to be sorted */
+void mergeSort(int route_wt[], int l, int r)
+{
+    if (l < r)
+    {
+        // Same as (l+r)/2, but avoids overflow for
+        // large l and h
+        int m = l+(r-l)/2;
+ 
+        // Sort first and second halves
+        mergeSort(route_wt, l, m);
+        mergeSort(route_wt, m+1, r);
+ 
+        merge(route_wt, l, m, r);
+    }
+}
+
+
+
 		
 		
 			
