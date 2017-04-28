@@ -192,24 +192,6 @@ int main()
     												// at all the nodes.
     		}
     		// calculate route weights
-<<<<<<< HEAD
-			if (clk==0){
-				int route_wt[3]={0,0,0};
-				int route_wait_student[3]={0,0,0};
-		    	for (int i=0;i<3;i++){
-					for(int j=0; j<sizeof(route[i]); j++){
-						for(int k=0;k<sizeof(node_array);k++){
-							if (strcmp(route[i][j],node_array[k].nodeID) == 0){
-								route_wt[i] += node_array[k].calc_weight();
-								route_wait_student[i] += node_array[k].num_wait;
-		    				}
-		    			}
-					}	
-				}
-			}
-		//Saqib code here   //note capacity =b1.cap+b2.cap+b3.cap
-		clk++;
-=======
 
 	if (clk==0){	int route_wt[3]={0,0,0};
 		int route_wait_student[3]={0,0,0};
@@ -297,15 +279,8 @@ void mergeSort(int route_wt[], int l, int r)
         merge(route_wt, l, m, r);
     }
 }
-
-
-
-		
-		
 			
 	clk++;
-
->>>>>>> 69d6ff69a37b265fcf29ace16a2e732c3040f9ba
     	}
     }
     return 1;
