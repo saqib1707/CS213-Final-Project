@@ -153,8 +153,6 @@ int main()
 
     int Bus::no_of_buses = 10;
     int Node::no_of_nodes = 14;
-
-    //cout<<"enter bus informtion separated by underscore \n <number(2-digit)(as on the number plate)>_<capacity(only 2 digit number)(total number of people that can be accomodated)_<name of origin(3 characters)(like H12,H07 etc>";
     
     feeding_buses(buses);     // buses objects are passed by reference
 
@@ -193,7 +191,6 @@ int main()
     			node_array[i].student_arrival();     // function called for updation of student 
     												// at all the nodes.
     		}
-			//initialise bus values
     		// calculate route weights
 			if (clk==0){
 				int route_wt[3]={0,0,0};
@@ -201,8 +198,8 @@ int main()
 		    	for (int i=0;i<3;i++){
 					for(int j=0; j<sizeof(route[i]); j++){
 						for(int k=0;k<sizeof(node_array);k++){
-							if (strcmp(route[i][j],node_array[k]) == 0){
-								route_wt[i] += node_array[k].weight; 
+							if (strcmp(route[i][j],node_array[k].nodeID) == 0){
+								route_wt[i] += node_array[k].calc_weight();
 								route_wait_student[i] += node_array[k].num_wait;
 		    				}
 		    			}
